@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="th">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My Trip</title><style>
+:root{
+  --bg:#f5f8ff;
+  --ink:#172033;
+  --muted:#667085;
+  --card:rgba(255,255,255,.82);
+  --stroke:rgba(135,158,205,.22);
+  --blue:#2f6bff;
+  --cyan:#73d7ff;
+  --lav:#c7b8ff;
+  --navy:#13224a;
+  --shadow:0 18px 46px rgba(31, 77, 150, .12);
+  --radius:28px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 10% 8%, rgba(115,215,255,.38), transparent 30%),
+    radial-gradient(circle at 92% 10%, rgba(199,184,255,.36), transparent 32%),
+    linear-gradient(180deg,#edf5ff 0%,#f8fbff 46%,#ffffff 100%);
+  min-height:100vh;
+  padding:18px;
+}
+.wrap{max-width:920px;margin:0 auto;padding-bottom:48px}
+.hero{
+  position:relative;
+  overflow:hidden;
+  border:1px solid var(--stroke);
+  border-radius:34px;
+  padding:26px;
+  background:linear-gradient(135deg,rgba(255,255,255,.92),rgba(242,247,255,.72));
+  box-shadow:var(--shadow);
+  backdrop-filter: blur(18px);
+}
+.hero:after{
+  content:"";
+  position:absolute;
+  inset:auto -18% -42% auto;
+  width:310px;height:310px;border-radius:50%;
+  background:linear-gradient(135deg,rgba(47,107,255,.20),rgba(115,215,255,.28));
+}
+.kicker{
+  display:inline-flex;gap:8px;align-items:center;
+  padding:8px 12px;border-radius:999px;
+  background:rgba(47,107,255,.09);
+  color:#2457d6;font-weight:700;font-size:13px;
+  border:1px solid rgba(47,107,255,.12);
+}
+h1{font-size:34px;line-height:1.05;margin:16px 0 10px;letter-spacing:-.8px}
+h2{font-size:20px;margin:0 0 14px;letter-spacing:-.2px}
+p,.sub{color:var(--muted);line-height:1.55;margin:0}
+.grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:18px}
+@media(min-width:720px){.grid.two{grid-template-columns:1fr 1fr}.grid.three{grid-template-columns:repeat(3,1fr)}}
+.card{
+  border:1px solid var(--stroke);
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:18px;
+  box-shadow:var(--shadow);
+  backdrop-filter: blur(16px);
+}
+.biglink{
+  display:block;
+  min-height:150px;
+  text-decoration:none;
+  color:var(--ink);
+  border:1px solid var(--stroke);
+  border-radius:30px;
+  padding:20px;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.95),rgba(239,246,255,.72));
+  box-shadow:var(--shadow);
+  transition:.22s ease;
+  position:relative;overflow:hidden;
+}
+.biglink:before{
+  content:"";
+  position:absolute;inset:-60% -30% auto auto;
+  width:210px;height:210px;border-radius:50%;
+  background:linear-gradient(135deg,rgba(47,107,255,.14),rgba(115,215,255,.18));
+}
+.biglink:hover,.pill:hover{transform:translateY(-3px);box-shadow:0 22px 58px rgba(31,77,150,.18)}
+.biglink b{display:block;font-size:22px;margin-bottom:8px}
+.biglink span{display:block;color:var(--muted);line-height:1.5}
+.pill{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:46px;padding:12px 16px;border-radius:999px;
+  background:linear-gradient(135deg,var(--blue),#65c8ff);
+  color:#fff;text-decoration:none;font-weight:800;
+  box-shadow:0 12px 28px rgba(47,107,255,.22);
+  transition:.2s ease;
+}
+.pill.secondary{
+  background:linear-gradient(135deg,#ffffff,#eff6ff);
+  color:#2457d6;border:1px solid rgba(47,107,255,.16);
+  box-shadow:var(--shadow);
+}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+.back{text-decoration:none;color:#2457d6;font-weight:800}
+.item{
+  display:flex;gap:10px;align-items:flex-start;
+  padding:11px 0;border-top:1px solid rgba(135,158,205,.16);
+  line-height:1.45;color:#27344f;
+}
+.item:first-of-type{border-top:0}
+.tag{
+  display:inline-flex;padding:7px 10px;border-radius:999px;
+  background:rgba(47,107,255,.08);color:#2457d6;
+  font-size:12px;font-weight:800;margin:4px 6px 0 0;
+}
+label{
+  display:flex;gap:12px;align-items:flex-start;
+  padding:12px 0;border-top:1px solid rgba(135,158,205,.16);
+  line-height:1.45;color:#27344f;
+}
+label:first-of-type{border-top:0}
+input[type="checkbox"]{width:22px;height:22px;accent-color:var(--blue);flex:0 0 auto;margin-top:1px}
+.done{text-decoration:line-through;color:#8a94a6}
+.progress{height:12px;border-radius:999px;background:#dfe8f7;overflow:hidden;margin:14px 0 6px}
+.bar{height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--cyan));transition:.25s ease}
+.count{font-size:13px;color:var(--muted);font-weight:700}
+.section-title{margin:22px 0 10px}
+.footer{text-align:center;color:var(--muted);font-size:13px;margin:28px 0 8px}
+</style></head>
+<body><div class="wrap">
+  <div class="topbar"><a class="back" href="index.html">← Home</a><a class="pill secondary" href="companion.html">Travel Companion</a></div>
+  <section class="hero">
+    <span class="kicker">🩵 Personal Travel Planner</span>
+    <h1>My Trip</h1>
+    <p>Outfit · Bags · Beauty · Personal Packing</p>
+    <div class="progress"><div class="bar" id="bar"></div></div>
+    <div class="count" id="count">0/0 checked</div>
+  </section>
+
+  <section class="card section-title"><h2>👜 Bag Setup</h2>
+    <label><input type="checkbox"><span>Airport: เป้ Laptop + Chamoon</span></label>
+    <label><input type="checkbox"><span>Prada Re-Edition 2005 ใส่ Luggage</span></label>
+    <label><input type="checkbox"><span>YSL Niki ใส่ Luggage</span></label>
+    <label><input type="checkbox"><span>ติด Luggage Tag</span></label>
+    <label><input type="checkbox"><span>ถ่ายรูป Luggage เก็บไว้</span></label>
+  </section>
+
+  <section class="card"><h2>👗 Outfit Plan</h2>
+    <label><input type="checkbox"><span>15: เสื้อชิล + ยีนส์ + ผ้าใบ</span></label>
+    <label><input type="checkbox"><span>16 Summit: Blazer กรม + เชิ้ตโบว์ + Skort ขาว + ส้นสูงขาว</span></label>
+    <label><input type="checkbox"><span>17 Summit: Blazer ขาวลายดำ + เสื้อ GstarCAD + Skort ขาว + ส้นสูงขาว</span></label>
+    <label><input type="checkbox"><span>18: เสื้อสีอ่อน + กางเกงขายาวดำ + ผ้าใบ</span></label>
+    <label><input type="checkbox"><span>19–23: เสื้อพอดีตัว / Skort / ยีนส์ ตามแพลน</span></label>
+  </section>
+
+  <section class="card"><h2>🧳 Personal Packing</h2>
+    <label><input type="checkbox"><span>Passport / Wallet / RMB / Cards</span></label>
+    <label><input type="checkbox"><span>MacBook + Charger + Adapter / Hub</span></label>
+    <label><input type="checkbox"><span>Power Bank / AirPods / Apple Watch Charger</span></label>
+    <label><input type="checkbox"><span>Makeup + Skincare</span></label>
+    <label><input type="checkbox"><span>ยา / พลาสเตอร์ / ผ้าอนามัย</span></label>
+    <label><input type="checkbox"><span>รองเท้าส้นสูงขาว + รองเท้าผ้าใบ</span></label>
+  </section>
+
+  <script>
+  const key='aliceMyTripV3'; const saved=JSON.parse(localStorage.getItem(key)||'{}');
+  document.querySelectorAll('label').forEach((l,i)=>{let cb=l.querySelector('input'),s=l.querySelector('span'); cb.checked=!!saved[i]; if(cb.checked)s.classList.add('done'); cb.onchange=()=>{saved[i]=cb.checked;localStorage.setItem(key,JSON.stringify(saved));s.classList.toggle('done',cb.checked);update();}});
+  function update(){let b=[...document.querySelectorAll('input')],c=b.filter(x=>x.checked).length;document.getElementById('bar').style.width=(c/b.length*100)+'%';document.getElementById('count').textContent=`${c}/${b.length} checked`;} update();
+  </script>
+</div></body></html>
