@@ -1,172 +1,764 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="th">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>My Trip</title><style>
-:root{
-  --bg:#f5f8ff;
-  --ink:#172033;
-  --muted:#667085;
-  --card:rgba(255,255,255,.82);
-  --stroke:rgba(135,158,205,.22);
-  --blue:#2f6bff;
-  --cyan:#73d7ff;
-  --lav:#c7b8ff;
-  --navy:#13224a;
-  --shadow:0 18px 46px rgba(31, 77, 150, .12);
-  --radius:28px;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Arial,sans-serif;
-  color:var(--ink);
-  background:
-    radial-gradient(circle at 10% 8%, rgba(115,215,255,.38), transparent 30%),
-    radial-gradient(circle at 92% 10%, rgba(199,184,255,.36), transparent 32%),
-    linear-gradient(180deg,#edf5ff 0%,#f8fbff 46%,#ffffff 100%);
-  min-height:100vh;
-  padding:18px;
-}
-.wrap{max-width:920px;margin:0 auto;padding-bottom:48px}
-.hero{
-  position:relative;
-  overflow:hidden;
-  border:1px solid var(--stroke);
-  border-radius:34px;
-  padding:26px;
-  background:linear-gradient(135deg,rgba(255,255,255,.92),rgba(242,247,255,.72));
-  box-shadow:var(--shadow);
-  backdrop-filter: blur(18px);
-}
-.hero:after{
-  content:"";
-  position:absolute;
-  inset:auto -18% -42% auto;
-  width:310px;height:310px;border-radius:50%;
-  background:linear-gradient(135deg,rgba(47,107,255,.20),rgba(115,215,255,.28));
-}
-.kicker{
-  display:inline-flex;gap:8px;align-items:center;
-  padding:8px 12px;border-radius:999px;
-  background:rgba(47,107,255,.09);
-  color:#2457d6;font-weight:700;font-size:13px;
-  border:1px solid rgba(47,107,255,.12);
-}
-h1{font-size:34px;line-height:1.05;margin:16px 0 10px;letter-spacing:-.8px}
-h2{font-size:20px;margin:0 0 14px;letter-spacing:-.2px}
-p,.sub{color:var(--muted);line-height:1.55;margin:0}
-.grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:18px}
-@media(min-width:720px){.grid.two{grid-template-columns:1fr 1fr}.grid.three{grid-template-columns:repeat(3,1fr)}}
-.card{
-  border:1px solid var(--stroke);
-  background:var(--card);
-  border-radius:var(--radius);
-  padding:18px;
-  box-shadow:var(--shadow);
-  backdrop-filter: blur(16px);
-}
-.biglink{
-  display:block;
-  min-height:150px;
-  text-decoration:none;
-  color:var(--ink);
-  border:1px solid var(--stroke);
-  border-radius:30px;
-  padding:20px;
-  background:
-    linear-gradient(135deg,rgba(255,255,255,.95),rgba(239,246,255,.72));
-  box-shadow:var(--shadow);
-  transition:.22s ease;
-  position:relative;overflow:hidden;
-}
-.biglink:before{
-  content:"";
-  position:absolute;inset:-60% -30% auto auto;
-  width:210px;height:210px;border-radius:50%;
-  background:linear-gradient(135deg,rgba(47,107,255,.14),rgba(115,215,255,.18));
-}
-.biglink:hover,.pill:hover{transform:translateY(-3px);box-shadow:0 22px 58px rgba(31,77,150,.18)}
-.biglink b{display:block;font-size:22px;margin-bottom:8px}
-.biglink span{display:block;color:var(--muted);line-height:1.5}
-.pill{
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  min-height:46px;padding:12px 16px;border-radius:999px;
-  background:linear-gradient(135deg,var(--blue),#65c8ff);
-  color:#fff;text-decoration:none;font-weight:800;
-  box-shadow:0 12px 28px rgba(47,107,255,.22);
-  transition:.2s ease;
-}
-.pill.secondary{
-  background:linear-gradient(135deg,#ffffff,#eff6ff);
-  color:#2457d6;border:1px solid rgba(47,107,255,.16);
-  box-shadow:var(--shadow);
-}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
-.back{text-decoration:none;color:#2457d6;font-weight:800}
-.item{
-  display:flex;gap:10px;align-items:flex-start;
-  padding:11px 0;border-top:1px solid rgba(135,158,205,.16);
-  line-height:1.45;color:#27344f;
-}
-.item:first-of-type{border-top:0}
-.tag{
-  display:inline-flex;padding:7px 10px;border-radius:999px;
-  background:rgba(47,107,255,.08);color:#2457d6;
-  font-size:12px;font-weight:800;margin:4px 6px 0 0;
-}
-label{
-  display:flex;gap:12px;align-items:flex-start;
-  padding:12px 0;border-top:1px solid rgba(135,158,205,.16);
-  line-height:1.45;color:#27344f;
-}
-label:first-of-type{border-top:0}
-input[type="checkbox"]{width:22px;height:22px;accent-color:var(--blue);flex:0 0 auto;margin-top:1px}
-.done{text-decoration:line-through;color:#8a94a6}
-.progress{height:12px;border-radius:999px;background:#dfe8f7;overflow:hidden;margin:14px 0 6px}
-.bar{height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--cyan));transition:.25s ease}
-.count{font-size:13px;color:var(--muted);font-weight:700}
-.section-title{margin:22px 0 10px}
-.footer{text-align:center;color:var(--muted);font-size:13px;margin:28px 0 8px}
-</style></head>
-<body><div class="wrap">
-  <div class="topbar"><a class="back" href="index.html">← Home</a><a class="pill secondary" href="companion.html">Travel Companion</a></div>
-  <section class="hero">
-    <span class="kicker">🩵 Personal Travel Planner</span>
-    <h1>My Trip</h1>
-    <p>Outfit · Bags · Beauty · Personal Packing</p>
-    <div class="progress"><div class="bar" id="bar"></div></div>
-    <div class="count" id="count">0/0 checked</div>
-  </section>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Trips | China 2026</title>
+  <style>
+    :root{
+      --ink:#3B2F63;
+      --text:#51466F;
+      --muted:#8B7CAB;
+      --purple:#A855F7;
+      --violet:#7C3AED;
+      --pink:#EC8DFF;
+      --sky:#BEE7FF;
+      --white:rgba(255,255,255,.72);
+      --glass:rgba(255,255,255,.42);
+      --glass-strong:rgba(255,255,255,.62);
+      --border:rgba(255,255,255,.62);
+      --shadow:0 24px 70px rgba(124,58,237,.18);
+      --soft-shadow:0 12px 35px rgba(124,58,237,.11);
+      --radius:28px;
+    }
 
-  <section class="card section-title"><h2>👜 Bag Setup</h2>
-    <label><input type="checkbox"><span>Airport: เป้ Laptop + Chamoon</span></label>
-    <label><input type="checkbox"><span>Prada Re-Edition 2005 ใส่ Luggage</span></label>
-    <label><input type="checkbox"><span>YSL Niki ใส่ Luggage</span></label>
-    <label><input type="checkbox"><span>ติด Luggage Tag</span></label>
-    <label><input type="checkbox"><span>ถ่ายรูป Luggage เก็บไว้</span></label>
-  </section>
+    *{box-sizing:border-box}
 
-  <section class="card"><h2>👗 Outfit Plan</h2>
-    <label><input type="checkbox"><span>15: เสื้อชิล + ยีนส์ + ผ้าใบ</span></label>
-    <label><input type="checkbox"><span>16 Summit: Blazer กรม + เชิ้ตโบว์ + Skort ขาว + ส้นสูงขาว</span></label>
-    <label><input type="checkbox"><span>17 Summit: Blazer ขาวลายดำ + เสื้อ GstarCAD + Skort ขาว + ส้นสูงขาว</span></label>
-    <label><input type="checkbox"><span>18: เสื้อสีอ่อน + กางเกงขายาวดำ + ผ้าใบ</span></label>
-    <label><input type="checkbox"><span>19–23: เสื้อพอดีตัว / Skort / ยีนส์ ตามแพลน</span></label>
-  </section>
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Prompt,Inter,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 8% 8%, rgba(236,141,255,.55) 0%, transparent 28%),
+        radial-gradient(circle at 92% 10%, rgba(190,231,255,.72) 0%, transparent 32%),
+        radial-gradient(circle at 75% 92%, rgba(168,85,247,.35) 0%, transparent 34%),
+        linear-gradient(180deg,#FFFBFF 0%,#F6EEFF 45%,#EEF8FF 100%);
+      overflow-x:hidden;
+    }
 
-  <section class="card"><h2>🧳 Personal Packing</h2>
-    <label><input type="checkbox"><span>Passport / Wallet / RMB / Cards</span></label>
-    <label><input type="checkbox"><span>MacBook + Charger + Adapter / Hub</span></label>
-    <label><input type="checkbox"><span>Power Bank / AirPods / Apple Watch Charger</span></label>
-    <label><input type="checkbox"><span>Makeup + Skincare</span></label>
-    <label><input type="checkbox"><span>ยา / พลาสเตอร์ / ผ้าอนามัย</span></label>
-    <label><input type="checkbox"><span>รองเท้าส้นสูงขาว + รองเท้าผ้าใบ</span></label>
-  </section>
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.35) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.35) 1px, transparent 1px);
+      background-size:42px 42px;
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,.28), transparent 70%);
+    }
+
+    .orb{
+      position:fixed;
+      border-radius:999px;
+      filter:blur(2px);
+      opacity:.55;
+      pointer-events:none;
+      animation:float 8s ease-in-out infinite;
+    }
+
+    .orb.one{width:180px;height:180px;background:#F2C6FF;left:-60px;top:130px}
+    .orb.two{width:130px;height:130px;background:#BEE7FF;right:5vw;top:420px;animation-delay:1.2s}
+    .orb.three{width:90px;height:90px;background:#D6BEFF;left:12vw;bottom:80px;animation-delay:2.1s}
+
+    @keyframes float{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-18px)}
+    }
+
+    .wrap{
+      width:min(1160px,92vw);
+      margin:0 auto;
+      padding:28px 0 70px;
+      position:relative;
+      z-index:1;
+    }
+
+    .glass{
+      background:linear-gradient(135deg, rgba(255,255,255,.72), rgba(255,255,255,.28));
+      border:1px solid var(--border);
+      backdrop-filter:blur(26px);
+      -webkit-backdrop-filter:blur(26px);
+      box-shadow:var(--shadow);
+    }
+
+    .hero{
+      border-radius:38px;
+      padding:30px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero:before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      background:
+        linear-gradient(120deg, rgba(255,255,255,.9), transparent 28%, rgba(255,255,255,.55) 48%, transparent 72%);
+      opacity:.45;
+      pointer-events:none;
+    }
+
+    .nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+      position:relative;
+      z-index:1;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:900;
+      color:var(--ink);
+      letter-spacing:-.2px;
+    }
+
+    .spark{
+      width:38px;
+      height:38px;
+      display:grid;
+      place-items:center;
+      border-radius:14px;
+      background:linear-gradient(135deg,#FFFFFF,#EAD7FF 48%,#C7E7FF);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.8), 0 10px 24px rgba(168,85,247,.18);
+    }
+
+    .pills{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .pill{
+      padding:9px 13px;
+      border-radius:999px;
+      background:rgba(255,255,255,.45);
+      border:1px solid rgba(255,255,255,.7);
+      color:var(--ink);
+      font-size:13px;
+      font-weight:800;
+      backdrop-filter:blur(16px);
+    }
+
+    .hero-main{
+      display:grid;
+      grid-template-columns:1.25fr .75fr;
+      gap:24px;
+      align-items:end;
+      margin-top:34px;
+      position:relative;
+      z-index:1;
+    }
+
+    h1{
+      margin:0;
+      font-size:clamp(54px,9vw,112px);
+      line-height:.86;
+      letter-spacing:-5px;
+      color:var(--ink);
+    }
+
+    .gradient-text{
+      background:linear-gradient(90deg,#7C3AED,#EC8DFF,#4CB3FF);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    .tagline{
+      margin:18px 0 0;
+      font-size:18px;
+      color:var(--text);
+      max-width:720px;
+    }
+
+    .mini-card{
+      border-radius:28px;
+      padding:18px;
+      background:rgba(255,255,255,.48);
+      border:1px solid rgba(255,255,255,.72);
+      box-shadow:var(--soft-shadow);
+    }
+
+    .mini-card b{
+      display:block;
+      color:var(--ink);
+      font-size:28px;
+      margin-bottom:3px;
+    }
+
+    .mini-card span{
+      color:var(--muted);
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+      margin-top:20px;
+      position:relative;
+      z-index:1;
+    }
+
+    .stat{
+      border-radius:24px;
+      padding:16px;
+      background:rgba(255,255,255,.42);
+      border:1px solid rgba(255,255,255,.68);
+      backdrop-filter:blur(18px);
+      box-shadow:var(--soft-shadow);
+    }
+
+    .stat b{
+      display:block;
+      font-size:22px;
+      color:var(--ink);
+      letter-spacing:-.4px;
+    }
+
+    .stat span{
+      display:block;
+      color:var(--muted);
+      font-size:12px;
+      margin-top:4px;
+      font-weight:700;
+    }
+
+    .progress-card{
+      margin:22px 0;
+      border-radius:28px;
+      padding:18px;
+      position:sticky;
+      top:12px;
+      z-index:10;
+    }
+
+    .progress-head{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:center;
+      margin-bottom:13px;
+    }
+
+    .progress-title{
+      color:var(--ink);
+      font-weight:950;
+      letter-spacing:-.2px;
+    }
+
+    .progress-number{
+      color:var(--muted);
+      font-size:13px;
+      font-weight:800;
+    }
+
+    .bar{
+      height:14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.58);
+      border:1px solid rgba(255,255,255,.75);
+      overflow:hidden;
+      box-shadow:inset 0 2px 8px rgba(60,42,100,.08);
+    }
+
+    .bar-fill{
+      height:100%;
+      width:0%;
+      border-radius:999px;
+      background:linear-gradient(90deg,#A855F7,#EC8DFF,#74D2FF);
+      box-shadow:0 0 18px rgba(168,85,247,.55);
+      transition:.25s ease;
+    }
+
+    .toolbar{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:14px;
+    }
+
+    button{
+      border:0;
+      cursor:pointer;
+      border-radius:999px;
+      padding:11px 15px;
+      font-weight:900;
+      font-family:inherit;
+      transition:.18s ease;
+    }
+
+    button:hover{transform:translateY(-1px)}
+
+    .btn-primary{
+      color:#fff;
+      background:linear-gradient(135deg,#7C3AED,#EC8DFF);
+      box-shadow:0 12px 26px rgba(168,85,247,.28);
+    }
+
+    .btn-soft{
+      color:var(--ink);
+      background:rgba(255,255,255,.55);
+      border:1px solid rgba(255,255,255,.72);
+    }
+
+    .btn-danger{
+      color:#B83280;
+      background:rgba(255,230,246,.72);
+      border:1px solid rgba(255,255,255,.72);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:18px;
+      margin-top:20px;
+    }
+
+    .card{
+      border-radius:30px;
+      overflow:hidden;
+      background:linear-gradient(135deg, rgba(255,255,255,.62), rgba(255,255,255,.30));
+      border:1px solid rgba(255,255,255,.70);
+      backdrop-filter:blur(22px);
+      -webkit-backdrop-filter:blur(22px);
+      box-shadow:0 18px 45px rgba(124,58,237,.12);
+    }
+
+    .card-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding:18px 18px 13px;
+      border-bottom:1px solid rgba(255,255,255,.55);
+    }
+
+    .card h2{
+      margin:0;
+      font-size:20px;
+      color:var(--ink);
+      letter-spacing:-.4px;
+    }
+
+    .count{
+      font-size:12px;
+      color:var(--violet);
+      background:rgba(255,255,255,.58);
+      border:1px solid rgba(255,255,255,.78);
+      padding:7px 10px;
+      border-radius:999px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+
+    .items{
+      padding:8px 10px 13px;
+    }
+
+    label.item{
+      display:flex;
+      gap:12px;
+      align-items:flex-start;
+      padding:12px 10px;
+      border-radius:18px;
+      cursor:pointer;
+      transition:.16s ease;
+    }
+
+    label.item:hover{
+      background:rgba(255,255,255,.43);
+      transform:translateX(2px);
+    }
+
+    input[type="checkbox"]{
+      appearance:none;
+      -webkit-appearance:none;
+      width:22px;
+      height:22px;
+      margin:0;
+      margin-top:1px;
+      border-radius:8px;
+      border:1.6px solid rgba(124,58,237,.36);
+      background:rgba(255,255,255,.66);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.9);
+      flex:0 0 auto;
+      position:relative;
+    }
+
+    input[type="checkbox"]:checked{
+      border-color:transparent;
+      background:linear-gradient(135deg,#7C3AED,#EC8DFF);
+      box-shadow:0 0 18px rgba(168,85,247,.42);
+    }
+
+    input[type="checkbox"]:checked:after{
+      content:"✓";
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      font-weight:950;
+      font-size:15px;
+    }
+
+    .item-text{
+      flex:1;
+      line-height:1.35;
+      font-weight:780;
+      color:var(--text);
+    }
+
+    .item-text small{
+      display:block;
+      color:var(--muted);
+      margin-top:3px;
+      font-size:12px;
+      font-weight:650;
+    }
+
+    input:checked + .item-text{
+      color:#9B8DB6;
+      text-decoration:line-through;
+      text-decoration-thickness:1px;
+    }
+
+    .note{
+      width:100%;
+      min-height:130px;
+      border:1px solid rgba(255,255,255,.75);
+      border-radius:24px;
+      padding:15px;
+      font-family:inherit;
+      font-size:15px;
+      resize:vertical;
+      outline:none;
+      color:var(--ink);
+      background:rgba(255,255,255,.46);
+      backdrop-filter:blur(16px);
+    }
+
+    .note::placeholder{color:#A294BE}
+
+    .full{grid-column:1/-1}
+
+    footer{
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+      margin-top:28px;
+      font-weight:700;
+    }
+
+    @media (max-width:860px){
+      .hero-main{grid-template-columns:1fr}
+      .stats{grid-template-columns:repeat(2,1fr)}
+      .grid{grid-template-columns:1fr}
+      h1{letter-spacing:-3px}
+      .hero{padding:22px}
+      .progress-card{top:8px}
+    }
+
+    @media print{
+      body{background:#fff}
+      body:before,.orb,.toolbar{display:none}
+      .progress-card{position:static}
+      .card,.hero,.progress-card{box-shadow:none}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+  <div class="orb three"></div>
+
+  <main class="wrap">
+    <section class="hero glass">
+      <div class="nav">
+        <div class="brand">
+          <div class="spark">✈️</div>
+          <span>Alicetle Travel OS</span>
+        </div>
+        <div class="pills">
+          <span class="pill">🇨🇳 China 2026</span>
+          <span class="pill">15-23 Jun</span>
+          <span class="pill">Checklist Mode</span>
+        </div>
+      </div>
+
+      <div class="hero-main">
+        <div>
+          <h1>My <span class="gradient-text">Trips</span></h1>
+          <p class="tagline">A little chaos. A little shopping. A lot of memories. เช็กของไปจีนแบบสวย ๆ ไม่ลืมสายชาร์จ Apple Watch ไว้ไทย</p>
+        </div>
+        <div class="mini-card">
+          <b>Xi’an → Chengdu → Chongqing</b>
+          <span>24” expandable to 26” · Front open luggage · S26 Ultra only</span>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><b>8D7N</b><span>ทริปทั้งหมด</span></div>
+        <div class="stat"><b>24→26”</b><span>กระเป๋าหลัก</span></div>
+        <div class="stat"><b>23-33°C</b><span>อากาศร้อน</span></div>
+        <div class="stat"><b>3 Cities</b><span>ย้ายเมือง</span></div>
+      </div>
+    </section>
+
+    <section class="progress-card glass">
+      <div class="progress-head">
+        <div class="progress-title">Packing Progress</div>
+        <div class="progress-number" id="progressText">0/0 checked</div>
+      </div>
+      <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+      <div class="toolbar">
+        <button class="btn-primary" onclick="checkEssentials()">ติ๊กของสำคัญที่มีแล้ว</button>
+        <button class="btn-soft" onclick="window.print()">Print / Save PDF</button>
+        <button class="btn-danger" onclick="resetAll()">Reset ทั้งหมด</button>
+      </div>
+    </section>
+
+    <section class="grid" id="checklist"></section>
+
+    <footer>Made for this chaotic-but-iconic China trip 💜🧳✨</footer>
+  </main>
 
   <script>
-  const key='aliceMyTripV3'; const saved=JSON.parse(localStorage.getItem(key)||'{}');
-  document.querySelectorAll('label').forEach((l,i)=>{let cb=l.querySelector('input'),s=l.querySelector('span'); cb.checked=!!saved[i]; if(cb.checked)s.classList.add('done'); cb.onchange=()=>{saved[i]=cb.checked;localStorage.setItem(key,JSON.stringify(saved));s.classList.toggle('done',cb.checked);update();}});
-  function update(){let b=[...document.querySelectorAll('input')],c=b.filter(x=>x.checked).length;document.getElementById('bar').style.width=(c/b.length*100)+'%';document.getElementById('count').textContent=`${c}/${b.length} checked`;} update();
+    const data = [
+      {
+        title:"🛂 เอกสาร + เงิน",
+        items:[
+          ["Passport","มีแล้ว"],
+          ["ตั๋วเครื่องบิน / Check-in","ยังต้องไปเช็กอิน"],
+          ["Booking โรงแรม","มีใน Trips"],
+          ["เงินสด 100 หยวน","ไว้สำรอง"],
+          ["บัตรเครดิต","มี"],
+          ["YouTrip","ใช้เป็นหลัก"],
+          ["WeChat Pay","ใช้ได้อยู่เสมอ"],
+          ["eSIM","ซื้อคืนนี้"],
+          ["ประกันเดินทาง","มากับซิม / ตัดสินใจอีกที"],
+          ["บัตรประชาชน / ThaiD","มีใน ThaiD"],
+          ["ปากกา","มี"]
+        ]
+      },
+      {
+        title:"📱 Gadget",
+        items:[
+          ["S26 Ultra","กล้องหลักของทริปนี้"],
+          ["สายชาร์จมือถือ",""],
+          ["หัวชาร์จ",""],
+          ["Power Bank","ต้องพกขึ้นเครื่อง"],
+          ["Apple Watch",""],
+          ["สายชาร์จ Apple Watch","ของที่คนชอบลืม"],
+          ["หูฟัง",""],
+          ["Adapter / หัวแปลงปลั๊ก",""],
+          ["หัวชาร์จหลายพอร์ต","ถ้ามี"],
+          ["สายชาร์จสำรอง",""],
+          ["ขาตั้งมือถือ / รีโมตถ่ายรูป","ถ้าจะถ่ายรูปเอง"],
+          ["Notebook / iPad","เอาเฉพาะถ้าจำเป็น"]
+        ]
+      },
+      {
+        title:"💄 Makeup + Skincare",
+        items:[
+          ["กระเป๋าเครื่องสำอางแบบแขวน","เริ่ดสุดสำหรับห้องน้ำโรงแรม"],
+          ["คลีนซิ่ง",""],
+          ["โฟมล้างหน้า",""],
+          ["Skincare หลัก","เซรั่ม / มอยส์เจอร์"],
+          ["กันแดด","ห้ามลืม"],
+          ["Cushion / รองพื้น",""],
+          ["แป้ง",""],
+          ["คิ้ว",""],
+          ["อายแชโดว์",""],
+          ["อายไลเนอร์",""],
+          ["มาสคาร่า",""],
+          ["บลัช",""],
+          ["ลิป",""],
+          ["แปรง / พัฟ / ฟองน้ำ",""]
+        ]
+      },
+      {
+        title:"💇🏻‍♀️ ผม + ของใช้ส่วนตัว",
+        items:[
+          ["ที่หนีบผม",""],
+          ["เครื่องลอน",""],
+          ["หวี",""],
+          ["กิ๊บ / ยางรัดผม",""],
+          ["โรลออน",""],
+          ["น้ำหอม",""],
+          ["แปรงสีฟัน",""],
+          ["ยาสีฟัน",""],
+          ["ทิชชู่ / ทิชชู่เปียก",""],
+          ["ถุงซิปล็อก",""],
+          ["ถุงใส่ผ้าใช้แล้ว",""]
+        ]
+      },
+      {
+        title:"👗 เสื้อผ้า",
+        items:[
+          ["ชุดวันเดินทาง","ใส่จากบ้าน"],
+          ["เสื้อเที่ยว","ประมาณ 5-6 ตัว"],
+          ["กระโปรง",""],
+          ["กางเกง",""],
+          ["เบลเซอร์",""],
+          ["ชุดนอน","2-3 ชุด"],
+          ["เสื้อคลุมบาง","เผื่อบนเครื่อง / ห้องแอร์"],
+          ["ชุดสำรอง 1 ชุด","กันพลาด"]
+        ]
+      },
+      {
+        title:"🩲 ชั้นใน + รองเท้า",
+        items:[
+          ["เสื้อใน",""],
+          ["กางเกงใน","ตัดวันใส่จากบ้านออก 1 วัน"],
+          ["ถุงเท้า",""],
+          ["รองเท้าคู่ที่ใส่เดินทาง",""],
+          ["รองเท้าสำรอง / ส้นสูง","ใส่ในกระเป๋า 1 คู่"],
+          ["ถุงใส่รองเท้า",""]
+        ]
+      },
+      {
+        title:"💊 ยา",
+        items:[
+          ["ยาประจำตัว",""],
+          ["พารา",""],
+          ["ยาแก้แพ้",""],
+          ["ยาแก้ท้องเสีย",""],
+          ["พลาสเตอร์",""],
+          ["ยาดม",""],
+          ["เกลือแร่","ถ้ามี"],
+          ["ยาแก้เมารถ / เวียนหัว","ถ้าจำเป็น"]
+        ]
+      },
+      {
+        title:"👜 กระเป๋า + จุกจิก",
+        items:[
+          ["กระเป๋าเดินทาง 24” ขยาย 26”","แบบเปิดหน้า"],
+          ["Backpack","ของขึ้นเครื่อง"],
+          ["กระเป๋าสะพายเที่ยว",""],
+          ["ถุงผ้าพับได้","เผื่อช้อป"],
+          ["ร่มพับ",""],
+          ["แว่นกันแดด",""],
+          ["หน้ากากอนามัย",""],
+          ["ช่องหน้ากระเป๋า","ปล่อยว่างได้ / ใส่ของแบน ๆ"]
+        ]
+      },
+      {
+        title:"📝 Notes",
+        full:true,
+        items:[]
+      }
+    ];
+
+    const checklist = document.getElementById("checklist");
+
+    function key(title, item){
+      return "china-glass-trip-" + title + "-" + item;
+    }
+
+    function render(){
+      checklist.innerHTML = "";
+
+      data.forEach(section => {
+        const card = document.createElement("article");
+        card.className = "card" + (section.full ? " full" : "");
+
+        if(section.full){
+          card.innerHTML = `
+            <div class="card-head">
+              <h2>${section.title}</h2>
+              <span class="count">บันทึกเอง</span>
+            </div>
+            <div class="items">
+              <textarea class="note" id="note" placeholder="พิมพ์ของที่นึกออกเพิ่มตรงนี้... เช่น ซื้อ eSIM / เช็กอิน / เติมเงิน YouTrip"></textarea>
+            </div>
+          `;
+          checklist.appendChild(card);
+          const note = card.querySelector("#note");
+          note.value = localStorage.getItem("china-glass-trip-note") || "";
+          note.addEventListener("input",()=>localStorage.setItem("china-glass-trip-note", note.value));
+          return;
+        }
+
+        const checkedCount = section.items.filter(([item]) => localStorage.getItem(key(section.title,item)) === "true").length;
+
+        card.innerHTML = `
+          <div class="card-head">
+            <h2>${section.title}</h2>
+            <span class="count">${checkedCount}/${section.items.length}</span>
+          </div>
+          <div class="items"></div>
+        `;
+
+        const itemsWrap = card.querySelector(".items");
+
+        section.items.forEach(([item,note]) => {
+          const id = key(section.title,item);
+          const label = document.createElement("label");
+          label.className = "item";
+          label.innerHTML = `
+            <input type="checkbox" ${localStorage.getItem(id)==="true" ? "checked" : ""} />
+            <span class="item-text">${item}${note ? `<small>${note}</small>` : ""}</span>
+          `;
+          const cb = label.querySelector("input");
+          cb.addEventListener("change",()=>{
+            localStorage.setItem(id, cb.checked);
+            updateProgress();
+            render();
+          });
+          itemsWrap.appendChild(label);
+        });
+
+        checklist.appendChild(card);
+      });
+
+      updateProgress();
+    }
+
+    function updateProgress(){
+      const all = data.flatMap(s => s.items.map(i => [s.title, i[0]]));
+      const checked = all.filter(([title,item]) => localStorage.getItem(key(title,item)) === "true").length;
+      const total = all.length;
+      const percent = total ? Math.round((checked/total)*100) : 0;
+      document.getElementById("progressText").textContent = `${checked}/${total} checked · ${percent}%`;
+      document.getElementById("barFill").style.width = percent + "%";
+    }
+
+    function checkEssentials(){
+      const essentials = [
+        ["🛂 เอกสาร + เงิน","Passport"],
+        ["🛂 เอกสาร + เงิน","Booking โรงแรม"],
+        ["🛂 เอกสาร + เงิน","เงินสด 100 หยวน"],
+        ["🛂 เอกสาร + เงิน","บัตรเครดิต"],
+        ["🛂 เอกสาร + เงิน","YouTrip"],
+        ["🛂 เอกสาร + เงิน","WeChat Pay"],
+        ["🛂 เอกสาร + เงิน","บัตรประชาชน / ThaiD"],
+        ["🛂 เอกสาร + เงิน","ปากกา"]
+      ];
+      essentials.forEach(([title,item]) => localStorage.setItem(key(title,item),"true"));
+      render();
+    }
+
+    function resetAll(){
+      if(confirm("Reset checklist ทั้งหมดเลยนะ?")){
+        Object.keys(localStorage).forEach(k => {
+          if(k.startsWith("china-glass-trip-")) localStorage.removeItem(k);
+        });
+        render();
+      }
+    }
+
+    render();
   </script>
-</div></body></html>
+</body>
+</html>
